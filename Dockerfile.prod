@@ -3,5 +3,5 @@ FROM node:latest
 WORKDIR /usr/src/app
 COPY ./dist ./
 COPY package*.json ./
-RUN npm install glob rimraf --force
+RUN npm install glob rimraf @nestjs/config --force
 RUN npm install --force
