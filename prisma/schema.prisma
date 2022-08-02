@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model computer_case {
+  id Int @default(autoincrement()) @id @unique
+  name String
+  description String
+  price Decimal
+}
+
+model cpu {
+  id Int @default(autoincrement()) @id @unique
+  name String
+  description String
+  price Decimal
+}
+
+model gpu {
+  id Int @default(autoincrement()) @id @unique
+  name String
+  description String
+  price Decimal
+}
+
+model ram {
+  id Int @default(autoincrement()) @id @unique
+  name String
+  description String
+  price Decimal
+}
+
+model power {
+  id Int @default(autoincrement()) @id @unique
+  name String
+  description String
+  price Decimal
+}
+
+model order {
+  id Int @default(autoincrement()) @id @unique
+  name String
+  contact String
+  email String
+  case String
+  cpu String
+  gpu String
+  ram String
+  power String
+}

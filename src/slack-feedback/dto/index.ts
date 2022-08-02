@@ -1,0 +1,1 @@
+export * from './slack-feedback-dto'
