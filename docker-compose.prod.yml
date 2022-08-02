@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  feedback_service:
+  constructor_service:
     hostname: constructor_service
     container_name: constructor_service
     image: ghcr.io/digitable-team/constructor-service:latest
