@@ -8,12 +8,17 @@ import {
   Md,
 } from 'slack-block-builder';
 import { sendError, sendSuccess } from 'src/helpers/statusCode.helper';
+import { ProducerService } from 'src/kafka/producer.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { SlackFeedbackDto } from './dto/slack-feedback-dto';
 
 @Injectable()
 export class SlackFeedbackService {
-  constructor(private service: SlackService, private prisma: PrismaService) {}
+  constructor(
+    private service: SlackService,
+    private prisma: PrismaService,
+    private readonly producer: ProducerService,
+  ) {}
 
   parseSlackPayload(dto: SlackFeedbackDto): Readonly<SlackBlockDto>[] {
     const slackData = BlockCollection(
@@ -37,6 +42,14 @@ export class SlackFeedbackService {
   }
 
   async postMessageToSlackAndDB(dto: SlackFeedbackDto) {
+    await this.producer.produce({
+      topic: 'postMessage',
+      messages: [
+        {
+          value: 'message posted to slack and database',
+        },
+      ],
+    });
     try {
       this.saveMessageToDB(dto);
       this.postMessageToSlack(dto);
