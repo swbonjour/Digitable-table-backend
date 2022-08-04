@@ -1,31 +1,32 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
+import { MessagePattern } from '@nestjs/microservices'
 import { ComponentsService } from './components.service';
 
 @Controller('components')
 export class ComponentsController {
     constructor(private service: ComponentsService) {}
 
-    @Get('cases')
+    @MessagePattern('constructor.cases')
     getComputerCases() {
         return this.service.getCases();
     }
 
-    @Get('cpus')
+    @MessagePattern('constructor.cpus')
     getCPUs() {
         return this.service.getCPUs();
     }
 
-    @Get('gpus')
+    @MessagePattern('constructor.gpus')
     getGPUs() {
         return this.service.getGPUs();
     }
 
-    @Get('rams')
+    @MessagePattern('constructor.rams')
     getRAMs() {
         return this.service.getRAMs();
     }
 
-    @Get('powers')
+    @MessagePattern('constructor.powers')
     getPowers() {
         return this.service.getPowers();
     }
