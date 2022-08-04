@@ -1,14 +1,18 @@
 import { Injectable } from '@nestjs/common';
+import { ComputerCaseEntity } from 'src/entities/computer_case.entity';
+import { CPUEntity } from 'src/entities/cpu.entity';
+import { GPUEntity } from 'src/entities/gpu.entity';
+import { PowerEntity } from 'src/entities/power.entity';
+import { RAMEntity } from 'src/entities/ram.entity';
 import { sendError } from 'src/helpers/statusCode.helper';
-import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class ComponentsService {
-  constructor(private prisma: PrismaService) {}
+  constructor() {}
 
   async getCases() {
     try {
-      const caseData = await this.prisma.computer_case.findMany();
+      const caseData = await ComputerCaseEntity.find();
       return caseData;
     } catch (error) {
       return sendError();
@@ -17,7 +21,7 @@ export class ComponentsService {
 
   async getCPUs() {
     try {
-      const cpuData = await this.prisma.cpu.findMany();
+      const cpuData = await CPUEntity.find();
       return cpuData;
     } catch (error) {
       return sendError();
@@ -26,7 +30,7 @@ export class ComponentsService {
 
   async getGPUs() {
     try {
-      const gpuData = await this.prisma.gpu.findMany();
+      const gpuData = await GPUEntity.find();
       return gpuData;
     } catch (error) {
       return sendError();
@@ -35,7 +39,7 @@ export class ComponentsService {
 
   async getRAMs() {
     try {
-      const ramData = await this.prisma.ram.findMany();
+      const ramData = await RAMEntity.find();
       return ramData;
     } catch (error) {
       return sendError();
@@ -44,7 +48,7 @@ export class ComponentsService {
 
   async getPowers() {
     try {
-      const powerData = await this.prisma.power.findMany();
+      const powerData = await PowerEntity.find();
       return powerData;
     } catch (error) {
       return sendError();

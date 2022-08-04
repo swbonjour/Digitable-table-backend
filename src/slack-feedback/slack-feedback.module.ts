@@ -3,7 +3,6 @@ import { SlackFeedbackController } from './slack-feedback.controller';
 import { SlackFeedbackService } from './slack-feedback.service';
 import { SlackModule } from 'nestjs-slack';
 import { SLACK_WEBHOOK } from 'src/tools/enviroment';
-import { PrismaService } from 'src/prisma/prisma.service';
 
 @Module({
   imports: [
@@ -13,6 +12,6 @@ import { PrismaService } from 'src/prisma/prisma.service';
     }),
   ],
   controllers: [SlackFeedbackController],
-  providers: [SlackFeedbackService, PrismaService],
+  providers: [SlackFeedbackService],
 })
 export class SlackFeedbackModule {}

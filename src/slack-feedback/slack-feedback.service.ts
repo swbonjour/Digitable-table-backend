@@ -7,18 +7,13 @@ import {
   Divider,
   Md,
 } from 'slack-block-builder';
+import { OrderEntity } from 'src/entities/order.entitiy';
 import { sendError, sendSuccess } from 'src/helpers/statusCode.helper';
-import { ProducerService } from 'src/kafka/producer.service';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { SlackFeedbackDto } from './dto/slack-feedback-dto';
 
 @Injectable()
 export class SlackFeedbackService {
-  constructor(
-    private service: SlackService,
-    private prisma: PrismaService,
-    private readonly producer: ProducerService,
-  ) {}
+  constructor(private service: SlackService) {}
 
   parseSlackPayload(dto: SlackFeedbackDto): Readonly<SlackBlockDto>[] {
     const slackData = BlockCollection(
@@ -42,14 +37,6 @@ export class SlackFeedbackService {
   }
 
   async postMessageToSlackAndDB(dto: SlackFeedbackDto) {
-    await this.producer.produce({
-      topic: 'postMessage',
-      messages: [
-        {
-          value: 'message posted to slack and database',
-        },
-      ],
-    });
     try {
       this.saveMessageToDB(dto);
       this.postMessageToSlack(dto);
@@ -71,8 +58,10 @@ export class SlackFeedbackService {
 
   async saveMessageToDB(dto: SlackFeedbackDto) {
     try {
-      const feedback = await this.prisma.order.create({
-        data: {
+      const feedback = await OrderEntity.createQueryBuilder()
+        .insert()
+        .into(OrderEntity)
+        .values({
           name: dto.name,
           contact: dto.contact,
           email: dto.email,
@@ -81,8 +70,7 @@ export class SlackFeedbackService {
           gpu: dto.gpu,
           ram: dto.ram,
           power: dto.power,
-        },
-      });
+        });
       return feedback;
     } catch (error) {
       return sendError(error);
