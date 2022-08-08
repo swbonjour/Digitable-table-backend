@@ -17,21 +17,21 @@ export class SlackFeedbackService {
 
   parseSlackPayload(dto: SlackFeedbackDto): Readonly<SlackBlockDto>[] {
     const slackData = BlockCollection(
-      Blocks.Section({ text: `${Md.bold('Name:')} ${dto.payload.name}` }),
+      Blocks.Section({ text: `${Md.bold('Name:')} ${dto.payload.userPayload.name}` }),
       Divider(),
-      Blocks.Section({ text: `${Md.bold('Contact:')} ${dto.payload.contact}` }),
+      Blocks.Section({ text: `${Md.bold('Contact:')} ${dto.payload.userPayload.contact}` }),
       Divider(),
-      Blocks.Section({ text: `${Md.bold('Email:')} ${dto.payload.email}` }),
+      Blocks.Section({ text: `${Md.bold('Email:')} ${dto.payload.userPayload.email}` }),
       Divider(),
-      Blocks.Section({ text: `${Md.bold('Case:')} ${dto.payload.case}` }),
+      Blocks.Section({ text: `${Md.bold('Case:')} ${dto.payload.componentsPayload.componentCase}` }),
       Divider(),
-      Blocks.Section({ text: `${Md.bold('CPU:')} ${dto.payload.cpu}` }),
+      Blocks.Section({ text: `${Md.bold('CPU:')} ${dto.payload.componentsPayload.componentCPU}` }),
       Divider(),
-      Blocks.Section({ text: `${Md.bold('GPU:')} ${dto.payload.gpu}` }),
+      Blocks.Section({ text: `${Md.bold('GPU:')} ${dto.payload.componentsPayload.componentGPU}` }),
       Divider(),
-      Blocks.Section({ text: `${Md.bold('RAM:')} ${dto.payload.ram}` }),
+      Blocks.Section({ text: `${Md.bold('RAM:')} ${dto.payload.componentsPayload.componentRAM}` }),
       Divider(),
-      Blocks.Section({ text: `${Md.bold('Power:')} ${dto.payload.power}` }),
+      Blocks.Section({ text: `${Md.bold('Power:')} ${dto.payload.componentsPayload.componentPower}` }),
     );
     return slackData;
   }
@@ -59,14 +59,14 @@ export class SlackFeedbackService {
   async saveMessageToDB(dto: SlackFeedbackDto) {
     try {
       const feedback = await OrderEntity.save({
-        name: dto.payload.name,
-        contact: dto.payload.contact,
-        email: dto.payload.email,
-        case: dto.payload.case,
-        cpu: dto.payload.cpu,
-        gpu: dto.payload.gpu,
-        ram: dto.payload.ram,
-        power: dto.payload.power,
+        name: dto.payload.userPayload.name,
+        contact: dto.payload.userPayload.contact,
+        email: dto.payload.userPayload.email,
+        case: dto.payload.componentsPayload.componentCase,
+        cpu: dto.payload.componentsPayload.componentCPU,
+        gpu: dto.payload.componentsPayload.componentGPU,
+        ram: dto.payload.componentsPayload.componentRAM,
+        power: dto.payload.componentsPayload.componentPower,
       });
       return feedback;
     } catch (error) {

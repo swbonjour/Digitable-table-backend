@@ -1,12 +1,16 @@
 export class SlackFeedbackDto {
   payload: {
-    name: string;
-    contact: string;
-    email: string;
-    case: string;
-    cpu: string;
-    gpu: string;
-    ram: string;
-    power: string;
+    userPayload: {
+      name: string;
+      contact: string;
+      email: string;
+    };
+    componentsPayload: {
+      componentCase: string;
+      componentCPU: string;
+      componentGPU: string;
+      componentRAM: string;
+      componentPower: string;
+    };
   };
 }
