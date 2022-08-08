@@ -10,6 +10,7 @@ export class SlackFeedbackController {
 
   @MessagePattern('constructor.create')
   postMessageToSlackAndDb(@Payload() message: IKafkaMessage<OrderEntity>) {
+    // @ts-ignore
     return this.service.postMessageToSlackAndDB(message.value);
   }
 }

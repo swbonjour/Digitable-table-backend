@@ -17,21 +17,21 @@ export class SlackFeedbackService {
 
   parseSlackPayload(dto: SlackFeedbackDto): Readonly<SlackBlockDto>[] {
     const slackData = BlockCollection(
-      Blocks.Section({ text: `${Md.bold('Name:')} ${dto.name}` }),
+      Blocks.Section({ text: `${Md.bold('Name:')} ${dto.payload.name}` }),
       Divider(),
-      Blocks.Section({ text: `${Md.bold('Contact:')} ${dto.contact}` }),
+      Blocks.Section({ text: `${Md.bold('Contact:')} ${dto.payload.contact}` }),
       Divider(),
-      Blocks.Section({ text: `${Md.bold('Email:')} ${dto.email}` }),
+      Blocks.Section({ text: `${Md.bold('Email:')} ${dto.payload.email}` }),
       Divider(),
-      Blocks.Section({ text: `${Md.bold('Case:')} ${dto.case}` }),
+      Blocks.Section({ text: `${Md.bold('Case:')} ${dto.payload.case}` }),
       Divider(),
-      Blocks.Section({ text: `${Md.bold('CPU:')} ${dto.cpu}` }),
+      Blocks.Section({ text: `${Md.bold('CPU:')} ${dto.payload.cpu}` }),
       Divider(),
-      Blocks.Section({ text: `${Md.bold('GPU:')} ${dto.gpu}` }),
+      Blocks.Section({ text: `${Md.bold('GPU:')} ${dto.payload.gpu}` }),
       Divider(),
-      Blocks.Section({ text: `${Md.bold('RAM:')} ${dto.ram}` }),
+      Blocks.Section({ text: `${Md.bold('RAM:')} ${dto.payload.ram}` }),
       Divider(),
-      Blocks.Section({ text: `${Md.bold('Power:')} ${dto.power}` }),
+      Blocks.Section({ text: `${Md.bold('Power:')} ${dto.payload.power}` }),
     );
     return slackData;
   }
@@ -58,19 +58,16 @@ export class SlackFeedbackService {
 
   async saveMessageToDB(dto: SlackFeedbackDto) {
     try {
-      const feedback = await OrderEntity.createQueryBuilder()
-        .insert()
-        .into(OrderEntity)
-        .values({
-          name: dto.name,
-          contact: dto.contact,
-          email: dto.email,
-          case: dto.case,
-          cpu: dto.cpu,
-          gpu: dto.gpu,
-          ram: dto.ram,
-          power: dto.power,
-        });
+      const feedback = await OrderEntity.save({
+        name: dto.payload.name,
+        contact: dto.payload.contact,
+        email: dto.payload.email,
+        case: dto.payload.case,
+        cpu: dto.payload.cpu,
+        gpu: dto.payload.gpu,
+        ram: dto.payload.ram,
+        power: dto.payload.power,
+      });
       return feedback;
     } catch (error) {
       return sendError(error);

@@ -16,6 +16,7 @@ import { CPUEntity } from './entities/cpu.entity';
 import { GPUEntity } from './entities/gpu.entity';
 import { RAMEntity } from './entities/ram.entity';
 import { PowerEntity } from './entities/power.entity';
+import { OrderEntity } from './entities/order.entitiy';
 
 @Module({
   imports: [
@@ -29,7 +30,7 @@ import { PowerEntity } from './entities/power.entity';
       username: DB_USERNAME,
       password: DB_PASSWORD,
       database: DB_NAME,
-      entities: [ComputerCaseEntity, CPUEntity, GPUEntity, RAMEntity, PowerEntity],
+      entities: [ComputerCaseEntity, CPUEntity, GPUEntity, RAMEntity, PowerEntity, OrderEntity],
       synchronize: true,
     }),
   ],
