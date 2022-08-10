@@ -1,17 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { ConstructorItemEntity } from 'src/entities/constructor_item.entity';
+import { ConstructorItemEntity, ConstructorItemEnum } from 'src/entities/constructor_item.entity';
 import { sendError } from 'src/helpers/statusCode.helper';
-import { ComponentDTO } from './dto';
 
 @Injectable()
 export class ComponentsService {
   constructor() {}
 
-  async getComponent(dto: ComponentDTO) {
+  async getComponent(component: ConstructorItemEnum) {
     try {
       const data = await ConstructorItemEntity.find({
         where: {
-          type: dto.payload.component
+          type: component
         }
       })
       return data
