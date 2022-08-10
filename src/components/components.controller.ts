@@ -3,7 +3,7 @@ import { MessagePattern } from '@nestjs/microservices'
 import { ConstructorItemEnum } from 'src/entities/constructor_item.entity';
 import { ComponentsService } from './components.service';
 
-@Controller('components')
+@Controller()
 export class ComponentsController {
     constructor(private service: ComponentsService) {}
 

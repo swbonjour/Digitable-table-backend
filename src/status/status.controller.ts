@@ -2,7 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices'
 import { StatusService } from './status.service';
 
-@Controller('status')
+@Controller()
 export class StatusController {
   constructor(private service: StatusService) {}
 
