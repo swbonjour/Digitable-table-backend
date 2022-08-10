@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ConstructorItemEntity, ConstructorItemEnum } from 'src/entities/constructor_item.entity';
+import { ConstructorItemEntity } from 'src/entities/constructor_item.entity';
 import { sendError } from 'src/helpers/statusCode.helper';
 import { ComponentDTO } from './dto';
 
