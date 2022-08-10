@@ -1,5 +1,5 @@
 import { Controller, Param } from '@nestjs/common';
-import { MessagePattern, Payload } from '@nestjs/microservices'
+import { MessagePattern } from '@nestjs/microservices'
 import { ConstructorItemEnum } from 'src/entities/constructor_item.entity';
 import { ComponentsService } from './components.service';
 
