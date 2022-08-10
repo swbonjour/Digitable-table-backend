@@ -12,11 +12,8 @@ import {
   DB_USERNAME,
 } from './tools/enviroment';
 import { ComputerCaseEntity } from './entities/computer_case.entity';
-import { CPUEntity } from './entities/cpu.entity';
-import { GPUEntity } from './entities/gpu.entity';
-import { RAMEntity } from './entities/ram.entity';
-import { PowerEntity } from './entities/power.entity';
 import { OrderEntity } from './entities/order.entitiy';
+import { ConstructorItemEntity } from './entities/constructor_item.entity';
 
 @Module({
   imports: [
@@ -30,7 +27,7 @@ import { OrderEntity } from './entities/order.entitiy';
       username: DB_USERNAME,
       password: DB_PASSWORD,
       database: DB_NAME,
-      entities: [ComputerCaseEntity, CPUEntity, GPUEntity, RAMEntity, PowerEntity, OrderEntity],
+      entities: [ComputerCaseEntity, OrderEntity, ConstructorItemEntity],
       synchronize: true,
     }),
   ],
