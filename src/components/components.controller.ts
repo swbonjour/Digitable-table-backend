@@ -1,33 +1,15 @@
 import { Controller } from '@nestjs/common';
-import { MessagePattern } from '@nestjs/microservices'
+import { MessagePattern, Payload } from '@nestjs/microservices'
+import { ConstructorItemEnum } from 'src/entities/constructor_item.entity';
+import { IKafkaMessage } from 'src/interfaces/kafka.interface';
 import { ComponentsService } from './components.service';
 
 @Controller('components')
 export class ComponentsController {
     constructor(private service: ComponentsService) {}
 
-    @MessagePattern('constructor.cases')
-    getComputerCases() {
-        return this.service.getCases();
-    }
-
-    @MessagePattern('constructor.cpus')
-    getCPUs() {
-        return this.service.getCPUs();
-    }
-
-    @MessagePattern('constructor.gpus')
-    getGPUs() {
-        return this.service.getGPUs();
-    }
-
-    @MessagePattern('constructor.rams')
-    getRAMs() {
-        return this.service.getRAMs();
-    }
-
-    @MessagePattern('constructor.powers')
-    getPowers() {
-        return this.service.getPowers();
+    @MessagePattern('constructor.component')
+    getComponent(@Payload() message: IKafkaMessage<ConstructorItemEnum>) {
+        return this.service.getComponent(message.value)
     }
 }
